@@ -16,7 +16,8 @@ export default {
   provide() {
     return {
       setContext: this.setContext,
-      clearContext: this.clearContext
+      clearContext: this.clearContext,
+      findPositionInContainer: this.findPositionInContainer
     };
   },
   methods: {
@@ -29,11 +30,20 @@ export default {
     dropAny() {
       if (this.context) this.context.drop();
     },
+    findPositionInContainer(e) {
+      let x = e.pageX - this.$el.offsetLeft,
+        y = e.pageY - this.$el.offsetTop;
+      return {
+        x,
+        y
+      };
+    },
     move(e) {
       if (!this.context) return;
+      let position = this.findPositionInContainer(e);
       let style = {
-        top: e.y + "px",
-        left: e.x + "px"
+        top: position.y - this.context.$el.offsetTop + "px",
+        left: position.x - this.context.$el.offsetLeft + "px"
       };
       setStyle.call(this.context.$el, style);
     }
@@ -47,5 +57,6 @@ export default {
   border: 1px solid black;
   height: 100px;
   width: 200px;
+  margin: 30px;
 }
 </style>

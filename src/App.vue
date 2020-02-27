@@ -1,9 +1,11 @@
 <template>
   <div>
-    <container>
-      <Drag>You Can Drag Me</Drag>
-      <Drag>You Can Drag Me Too!!</Drag>
-    </container>
+    <div style="{margin:'30px'}">
+      <container>
+        <Drag :forward="true" class="card">You Can Drag Me</Drag>
+        <Drag class="card">You Can Drag Me Too!!</Drag>
+      </container>
+    </div>
   </div>
 </template>
 
@@ -20,4 +22,9 @@ export default {
 </script>
 
 <style>
+.card {
+  border: 1px solid black;
+  color: blue;
+  cursor: move;
+}
 </style>
