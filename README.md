@@ -1,2 +1,0 @@
-# VueDragPro
-Created with CodeSandbox
