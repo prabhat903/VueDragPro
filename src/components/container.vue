@@ -42,8 +42,8 @@ export default {
       if (!this.context) return;
       let position = this.findPositionInContainer(e);
       let style = {
-        top: position.y - this.context.$el.offsetTop + "px",
-        left: position.x - this.context.$el.offsetLeft + "px"
+        top: position.y - this.context.offset.y + "px",
+        left: position.x - this.context.offset.x + "px"
       };
       setStyle.call(this.context.$el, style);
     }
