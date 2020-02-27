@@ -1,5 +1,5 @@
 <template>
-  <div class="container" @mousemove="move" @mouseup="context.drop">
+  <div class="container" @mousemove="move" @mouseup="dropAny">
     <slot></slot>
   </div>
 </template>
@@ -25,6 +25,9 @@ export default {
     },
     clearContext() {
       this.context = null;
+    },
+    dropAny() {
+      if (this.context) this.context.drop();
     },
     move(e) {
       if (!this.context) return;
