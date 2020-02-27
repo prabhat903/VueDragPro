@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="{margin:'30px'}">
-      <container>
+      <container class="DraggingContainer" :center="false">
         <Drag :forward="true" class="card">You Can Drag Me</Drag>
         <Drag class="card">You Can Drag Me Too!!</Drag>
       </container>
@@ -26,5 +26,10 @@ export default {
   border: 1px solid black;
   color: blue;
   cursor: move;
+}
+div.DraggingContainer {
+  height: 300px;
+  padding: 30px;
+  width: 300px;
 }
 </style>

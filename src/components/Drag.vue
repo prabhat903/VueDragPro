@@ -16,23 +16,40 @@ export default {
   props: {
     forward: { default: false }
   },
-  inject: ["setContext", "clearContext", "findPositionInContainer"],
+  inject: ["center", "setContext", "clearContext", "findPositionInContainer"],
   methods: {
     start(event) {
       let position = this.findPositionInContainer(event),
-        style;
-      this.offset = {
-        x: event.offsetX,
-        y: event.offsetY
-      };
-      style = {
-        top: position.y - this.offset.y + "px",
-        left: position.x - this.offset.x + "px"
-      };
+        offset = this.getOffset(event),
+        style = {
+          top: position.y - offset.y + "px",
+          left: position.x - offset.x + "px"
+        };
       // console.log("start" + JSON.stringify(style));
       this.$el.classList.add("dragMe");
       setStyle.call(this.$el, style);
       this.setContext(this);
+      this.$emit("onGrab", { Dragging: this, element: this.$el });
+    },
+    getOffset(event) {
+      let cssStyle = window.getComputedStyle(this.$el),
+        margin = {
+          x: cssStyle.marginLeft,
+          y: cssStyle.marginTop
+        };
+      if (!this.center) {
+        this.offset = {
+          x: event.offsetX + parseFloat(margin.x),
+          y: event.offsetY + parseFloat(margin.y)
+        };
+      } else {
+        this.offset = {
+          x: event.target.offsetWidth / 2 + parseFloat(margin.x),
+          y: event.target.offsetHeight / 2 + parseFloat(margin.y)
+        };
+      }
+
+      return this.offset;
     },
     drop() {
       this.clearContext();

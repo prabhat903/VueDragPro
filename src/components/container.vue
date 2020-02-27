@@ -8,6 +8,11 @@
 import { setStyle } from "./helper";
 export default {
   name: "container",
+  props: {
+    center: {
+      default: false
+    }
+  },
   data() {
     return {
       context: null
@@ -17,7 +22,8 @@ export default {
     return {
       setContext: this.setContext,
       clearContext: this.clearContext,
-      findPositionInContainer: this.findPositionInContainer
+      findPositionInContainer: this.findPositionInContainer,
+      center: this.center
     };
   },
   methods: {
@@ -46,6 +52,7 @@ export default {
         left: position.x - this.context.offset.x + "px"
       };
       setStyle.call(this.context.$el, style);
+      e.preventDefault();
     }
   }
 };
