@@ -5,9 +5,11 @@
       <container class="DraggingContainer" :center="true">
         <Drag :forward="true" class="card">You Can Drag Me Away</Drag>
         <div>
-          <div class="title">You Can Drag Me Too</div>
-          <Drag class="card">
-            <div>But I came back!!</div>
+          <Drag class="card" :useHandle="true" v-slot="handle">
+            <handle :handle="handle">
+              <div>But I came back!!</div>
+            </handle>
+            <div class="title">You Can Drag Me Too</div>
           </Drag>
         </div>
       </container>
@@ -19,11 +21,13 @@
 <script>
 import Drag from "./components/Drag";
 import container from "./components/container";
+import handle from "./components/handle";
 export default {
   name: "App",
   components: {
     Drag,
-    container
+    container,
+    handle
   }
 };
 </script>

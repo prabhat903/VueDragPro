@@ -1,12 +1,16 @@
 <template>
-  <div ref="drag" @mousedown="start">
-    <slot></slot>
+  <div ref="drag">
+    <slot v-bind:handle="{'start':start}"></slot>
   </div>
 </template>
 
 <script>
 import { setStyle } from "./helper";
+import handle from "./handle";
 export default {
+  components: {
+    handle
+  },
   name: "Drag",
   data() {
     return {
@@ -14,7 +18,14 @@ export default {
     };
   },
   props: {
-    forward: { default: false }
+    forward: { default: false },
+    useHandle: { default: false }
+  },
+  provide() {
+    return {
+      start: this.start,
+      drop: this.drop
+    };
   },
   inject: ["center", "setContext", "clearContext", "findPositionInContainer"],
   methods: {
