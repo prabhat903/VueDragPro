@@ -44,8 +44,8 @@ export default {
         };
       } else {
         this.offset = {
-          x: event.target.offsetWidth / 2 + parseFloat(margin.x),
-          y: event.target.offsetHeight / 2 + parseFloat(margin.y)
+          x: this.$el.offsetWidth / 2 + parseFloat(margin.x),
+          y: this.$el.offsetHeight / 2 + parseFloat(margin.y)
         };
       }
 
@@ -63,7 +63,6 @@ export default {
 
 <style>
 .dragMe {
-  border: 1px solid black;
   cursor: move;
   position: absolute;
 }

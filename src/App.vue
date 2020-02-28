@@ -1,10 +1,17 @@
 <template>
-  <div>
-    <div style="{margin:'30px'}">
-      <container class="DraggingContainer" :center="false">
-        <Drag :forward="true" class="card">You Can Drag Me</Drag>
-        <Drag class="card">You Can Drag Me Too!!</Drag>
+  <div class="parent">
+    <div class="mainContainer">
+      <div class="sibling">Hello My friends</div>
+      <container class="DraggingContainer" :center="true">
+        <Drag :forward="true" class="card">You Can Drag Me Away</Drag>
+        <div>
+          <div class="title">You Can Drag Me Too</div>
+          <Drag class="card">
+            <div>But I came back!!</div>
+          </Drag>
+        </div>
       </container>
+      <div style="{clear:both}"></div>
     </div>
   </div>
 </template>
@@ -22,14 +29,40 @@ export default {
 </script>
 
 <style>
+.title {
+  height: 300px;
+  width: 200px;
+  font-size: 20px;
+}
 .card {
+  overflow: auto;
   border: 1px solid black;
   color: blue;
   cursor: move;
+  margin: 10px;
+  padding: 5px;
+  text-align: center;
+  width: 100px;
 }
 div.DraggingContainer {
+  float: left;
   height: 300px;
   padding: 30px;
   width: 300px;
+  border: 1px solid black;
+  margin: 30px;
+  overflow: auto;
+}
+.sibling {
+  width: 20px;
+  float: left;
+  margin: 30px;
+}
+.mainContainer {
+  width: 2000px;
+}
+.parent {
+  width: 500px;
+  overflow: auto;
 }
 </style>

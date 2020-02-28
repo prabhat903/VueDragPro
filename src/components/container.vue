@@ -15,7 +15,8 @@ export default {
   },
   data() {
     return {
-      context: null
+      context: null,
+      containerOffset: null
     };
   },
   provide() {
@@ -32,6 +33,7 @@ export default {
     },
     clearContext() {
       this.context = null;
+      this.containerOffset = null;
     },
     dropAny() {
       if (this.context) this.context.drop();
@@ -39,6 +41,23 @@ export default {
     findPositionInContainer(e) {
       let x = e.pageX - this.$el.offsetLeft,
         y = e.pageY - this.$el.offsetTop;
+      if (!this.containerOffset) {
+        let ele = this.$el.parentElement;
+        this.containerOffset = { x: 0, y: 0 };
+        while (ele.tagName.toLowerCase() !== "body") {
+          this.containerOffset.x += ele.scrollLeft;
+          this.containerOffset.y += ele.scrollTop;
+          ele = ele.parentElement;
+        }
+        console.log(
+          "containerOffset",
+          this.containerOffset.x,
+          this.containerOffset.y
+        );
+      }
+      x += this.containerOffset.x + this.$el.scrollLeft;
+      y += this.containerOffset.y + this.$el.scrollTop;
+      console.log(x, y);
       return {
         x,
         y
@@ -61,9 +80,5 @@ export default {
 <style>
 .container {
   position: relative;
-  border: 1px solid black;
-  height: 100px;
-  width: 200px;
-  margin: 30px;
 }
 </style>
