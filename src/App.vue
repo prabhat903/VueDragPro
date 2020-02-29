@@ -2,14 +2,16 @@
   <div class="parent">
     <div class="mainContainer">
       <div class="sibling">Hello My friends</div>
-      <container class="DraggingContainer" :center="true">
-        <Drag :forward="true" class="card" :useHandle="true">You Can Drag Me Away</Drag>
-        <Drag class="card" :forward="true" :useHandle="true" v-slot="handle">
-          <handle :handle="handle">
-            <div>But I came back!!</div>
-            <div class="title">You Can Drag Me Too</div>
-          </handle>
-        </Drag>
+      <container class="DraggingContainer">
+        <DragList :useHandle="true" :list="[1,2,3,4]" :className="'card'" v-slot="{ele,handle}">
+          <div>
+            <div>{{ele}}</div>
+            <handle :handle="handle">Hold Me!</handle>
+          </div>
+        </DragList>
+        <template type="placeholder">
+          <div></div>
+        </template>
       </container>
       <div style="{clear:both}"></div>
     </div>
@@ -17,13 +19,13 @@
 </template>
 
 <script>
-import Drag from "./components/Drag";
+import DragList from "./components/DragList";
 import container from "./components/container";
 import handle from "./components/handle";
 export default {
   name: "App",
   components: {
-    Drag,
+    DragList,
     container,
     handle
   }
