@@ -49,15 +49,9 @@ export default {
           this.containerOffset.y += ele.scrollTop;
           ele = ele.parentElement;
         }
-        console.log(
-          "containerOffset",
-          this.containerOffset.x,
-          this.containerOffset.y
-        );
       }
       x += this.containerOffset.x + this.$el.scrollLeft;
       y += this.containerOffset.y + this.$el.scrollTop;
-      console.log(x, y);
       return {
         x,
         y

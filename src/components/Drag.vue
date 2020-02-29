@@ -1,9 +1,13 @@
 <template>
   <div ref="drag">
-    <slot v-bind:handle="{'start':start}"></slot>
+    <template v-if="!useHandle">
+      <handle :handle="{handle:{'start':start}}">
+        <slot></slot>
+      </handle>
+    </template>
+    <slot v-else v-bind:handle="{'start':start}"></slot>
   </div>
 </template>
-
 <script>
 import { setStyle } from "./helper";
 import handle from "./handle";

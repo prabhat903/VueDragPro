@@ -3,15 +3,13 @@
     <div class="mainContainer">
       <div class="sibling">Hello My friends</div>
       <container class="DraggingContainer" :center="true">
-        <Drag :forward="true" class="card">You Can Drag Me Away</Drag>
-        <div>
-          <Drag class="card" :useHandle="true" v-slot="handle">
-            <handle :handle="handle">
-              <div>But I came back!!</div>
-            </handle>
+        <Drag :forward="true" class="card" :useHandle="true">You Can Drag Me Away</Drag>
+        <Drag class="card" :forward="true" :useHandle="true" v-slot="handle">
+          <handle :handle="handle">
+            <div>But I came back!!</div>
             <div class="title">You Can Drag Me Too</div>
-          </Drag>
-        </div>
+          </handle>
+        </Drag>
       </container>
       <div style="{clear:both}"></div>
     </div>
