@@ -1,20 +1,17 @@
 <template>
   <div class="parent">
-    <div class="mainContainer">
-      <div class="sibling">Hello My friends</div>
-      <container class="DraggingContainer">
-        <DragList :useHandle="true" :list="[1,2,3,4]" :className="'card'" v-slot="{ele,handle}">
-          <div>
-            <div>{{ele}}</div>
-            <handle :handle="handle">Hold Me!</handle>
-          </div>
-        </DragList>
-        <template type="placeholder">
-          <div></div>
+    <div class="sibling">Hello My friends</div>
+    <container class="DraggingContainer">
+      <DragList :useHandle="true" :list="[1,2,3,4]" :className="'card'">
+        <template v-slot:default="{ele,ind,handle}">
+          <div>{{ele}}{{ind}}</div>
+          <handle :handle="handle">Hold Me!</handle>
         </template>
-      </container>
-      <div style="{clear:both}"></div>
-    </div>
+        <template #placeholder>
+          <div class="card">Dorp Me here !!</div>
+        </template>
+      </DragList>
+    </container>
   </div>
 </template>
 
@@ -49,7 +46,6 @@ export default {
   width: 100px;
 }
 div.DraggingContainer {
-  float: left;
   height: 300px;
   padding: 30px;
   width: 300px;
@@ -59,7 +55,6 @@ div.DraggingContainer {
 }
 .sibling {
   width: 20px;
-  float: left;
   margin: 30px;
 }
 .mainContainer {
