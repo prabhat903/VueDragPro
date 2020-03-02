@@ -1,5 +1,5 @@
 <template>
-  <div ref="drag">
+  <div ref="drag" @mousemove="hover">
     <template v-if="!useHandle">
       <handle :handle="{handle:{'start':start}}">
         <slot></slot>
@@ -44,7 +44,7 @@ export default {
       this.$el.classList.add("dragMe");
       setStyle.call(this.$el, style);
       this.setContext(this);
-      this.$emit("onGrab", { Dragging: this, element: this.$el });
+      this.$emit("onStart", { Dragging: this, element: this.$el });
     },
     getOffset(event) {
       let cssStyle = window.getComputedStyle(this.$el),
@@ -71,6 +71,10 @@ export default {
       if (this.forward) return;
       this.$el.classList.remove("dragMe");
       this.$el.removeAttribute("style");
+      this.$emit("onDrop", { Dragging: this });
+    },
+    hover(event) {
+      this.$emit("hover", { event, Dragging: this });
     }
   }
 };
