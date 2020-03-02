@@ -1,6 +1,6 @@
 <template>
   <div class="container" @mousemove="move" @mouseup="dropAny">
-    <slot></slot>
+    <slot name="default"></slot>
   </div>
 </template>
 
