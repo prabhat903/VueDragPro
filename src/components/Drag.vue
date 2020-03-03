@@ -42,6 +42,7 @@ export default {
         };
       // console.log("start" + JSON.stringify(style));
       this.$el.classList.add("dragMe");
+      console.log("start");
       setStyle.call(this.$el, style);
       this.setContext(this);
       this.$emit("onStart", { Dragging: this, element: this.$el });

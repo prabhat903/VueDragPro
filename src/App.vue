@@ -8,7 +8,7 @@
           <handle :handle="handle">Hold Me!</handle>
         </template>
         <template #placeholder>
-          <div class="card">Dorp Me here !!</div>
+          <div class="card placeholder">Dorp Me here !!</div>
         </template>
       </DragList>
     </container>
@@ -63,5 +63,8 @@ div.DraggingContainer {
 .parent {
   width: 500px;
   overflow: auto;
+}
+.placeholder.card {
+  background: pink;
 }
 </style>
