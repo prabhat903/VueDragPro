@@ -20,6 +20,7 @@
 <script>
 import Drag from "./Drag";
 export default {
+  name: "DragList",
   components: {
     Drag
   },

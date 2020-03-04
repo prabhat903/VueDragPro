@@ -1,17 +1,18 @@
 <template>
   <div class="parent">
     <div class="sibling">Hello My friends</div>
-    <container class="DraggingContainer">
-      <DragList :useHandle="true" v-model="list" :className="'card'">
+    <container>
+      <DragList v-model="list" :className="'card'">
         <template v-slot:default="{ele,ind,handle}">
-          <div>{{ele}}</div>
-          <handle :handle="handle">Hold Me!</handle>
+          <h2>{{ele.name}}</h2>
+          <!-- <handle :handle="handle">Hold me to Drag!</handle> -->
         </template>
         <template #placeholder>
-          <div class="card placeholder">Dorp Me here !!</div>
+          <div class="card placeholder">I will catch</div>
         </template>
       </DragList>
     </container>
+    <div>{{list}}</div>
   </div>
 </template>
 
@@ -23,7 +24,11 @@ export default {
   name: "App",
   data() {
     return {
-      list: [1, 2, 3, 4]
+      list: [
+        { name: "Abhisk", age: 40, src: "profilePic" },
+        { name: "rajesh", age: 24, src: "profilePic" },
+        { name: "prabhat", age: 65, src: "profilePic" }
+      ]
     };
   },
   components: {
@@ -53,7 +58,7 @@ export default {
 div.DraggingContainer {
   height: 300px;
   padding: 30px;
-  width: 300px;
+  width: 500px;
   border: 1px solid black;
   margin: 30px;
   overflow: auto;
@@ -70,6 +75,18 @@ div.DraggingContainer {
   overflow: auto;
 }
 .placeholder.card {
-  background: pink;
+  background: green;
+  height: 10px;
+  padding: 40px;
+}
+@keyframes Open {
+  from {
+    height: 0px;
+    padding: 0px;
+  }
+  to {
+    height: 30px;
+    padding: 20px;
+  }
 }
 </style>
