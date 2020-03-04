@@ -2,9 +2,9 @@
   <div class="parent">
     <div class="sibling">Hello My friends</div>
     <container class="DraggingContainer">
-      <DragList :useHandle="true" :list="[1,2,3,4]" :className="'card'">
+      <DragList :useHandle="true" v-model="list" :className="'card'">
         <template v-slot:default="{ele,ind,handle}">
-          <div>{{ele}}{{ind}}</div>
+          <div>{{ele}}</div>
           <handle :handle="handle">Hold Me!</handle>
         </template>
         <template #placeholder>
@@ -21,6 +21,11 @@ import container from "./components/container";
 import handle from "./components/handle";
 export default {
   name: "App",
+  data() {
+    return {
+      list: [1, 2, 3, 4]
+    };
+  },
   components: {
     DragList,
     container,

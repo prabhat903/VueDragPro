@@ -1,10 +1,10 @@
 <template>
   <div @mousemove="hover">
-    <template v-for="(ele,ind) in list">
+    <template v-for="(ele,ind) in value">
       <slot name="placeholder" v-if="ind === loadat && isOver"></slot>
       <Drag
         v-bind="$attrs"
-        :key="(ele[keyName]||ele)+ind"
+        :key="(ele[keyName]||ele)+''+ind"
         v-slot="handle"
         :class="[className,'$ditem']"
         @onStart="(context)=>{setPlaceholder(ind,context)}"
@@ -24,7 +24,7 @@ export default {
     Drag
   },
   props: {
-    list: { type: Array },
+    value: { type: Array },
     keyName: { type: String },
     className: { type: String }
   },
@@ -73,9 +73,19 @@ export default {
       this.$emit("onStart", { Dragging, element });
     },
     clearContext(context) {
+      this.dropIn();
       this.isDragging = false;
       this.loadat = null;
       this.$emit("onDrop", context);
+    },
+    dropIn() {
+      if (!this.$slots.placeholder) return;
+      let tempList = this.value.filter(
+          (ele, ind) => ind !== this.DraggingIndex
+        ),
+        temp = this.value.splice(this.DraggingIndex, 1);
+      tempList.splice(this.loadat, 0, temp[0]);
+      this.$emit("input", tempList);
     }
   }
 };
