@@ -1,10 +1,18 @@
 <template>
   <div class="parent">
-    <div class="sibling">Hello My friends</div>
-    <container>
-      <DragList v-model="list" :className="'card'">
+    <container class="DraggingContainer">
+      <DragList v-model="list" :className="'card'" class="zone">
         <template v-slot:default="{ele,ind,handle}">
-          <h2>{{ele.name}}</h2>
+          <h2>{{ele}}</h2>
+          <!-- <handle :handle="handle">Hold me to Drag!</handle> -->
+        </template>
+        <template #placeholder>
+          <div class="card placeholder">I will catch</div>
+        </template>
+      </DragList>
+      <DragList v-model="list2" :className="'card'" class="zone">
+        <template v-slot:default="{ele,ind,handle}">
+          <h2>{{ele}}</h2>
           <!-- <handle :handle="handle">Hold me to Drag!</handle> -->
         </template>
         <template #placeholder>
@@ -13,6 +21,7 @@
       </DragList>
     </container>
     <div>{{list}}</div>
+    <div>{{list2}}</div>
   </div>
 </template>
 
@@ -24,11 +33,8 @@ export default {
   name: "App",
   data() {
     return {
-      list: [
-        { name: "Abhisk", age: 40, src: "profilePic" },
-        { name: "rajesh", age: 24, src: "profilePic" },
-        { name: "prabhat", age: 65, src: "profilePic" }
-      ]
+      list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+      list2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     };
   },
   components: {
@@ -40,6 +46,12 @@ export default {
 </script>
 
 <style>
+.zone {
+  border: 1px solid pink;
+  padding: 5px;
+  margin: 5px;
+  overflow: auto;
+}
 .title {
   height: 300px;
   width: 200px;
@@ -57,21 +69,9 @@ export default {
 }
 div.DraggingContainer {
   height: 300px;
-  padding: 30px;
-  width: 500px;
+  padding: 10px;
+  display: flex;
   border: 1px solid black;
-  margin: 30px;
-  overflow: auto;
-}
-.sibling {
-  width: 20px;
-  margin: 30px;
-}
-.mainContainer {
-  width: 2000px;
-}
-.parent {
-  width: 500px;
   overflow: auto;
 }
 .placeholder.card {

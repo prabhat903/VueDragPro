@@ -85,7 +85,11 @@ export default {
           (ele, ind) => ind !== this.DraggingIndex
         ),
         temp = this.value.splice(this.DraggingIndex, 1);
-      tempList.splice(this.loadat, 0, temp[0]);
+      tempList.splice(
+        this.loadat !== null ? this.loadat : this.DraggingIndex,
+        0,
+        temp[0]
+      );
       this.$emit("input", tempList);
     }
   }
