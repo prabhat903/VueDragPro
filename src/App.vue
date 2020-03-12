@@ -1,7 +1,7 @@
 <template>
   <div class="parent">
     <container class="DraggingContainer">
-      <DragList v-model="list" :className="'card'" class="zone">
+      <DragList v-model="list" :className="'card'" class="zone z1">
         <template v-slot:default="{ele,ind,handle}">
           <h2>{{ele}}</h2>
           <!-- <handle :handle="handle">Hold me to Drag!</handle> -->
@@ -10,7 +10,7 @@
           <div class="card placeholder">I will catch</div>
         </template>
       </DragList>
-      <DragList v-model="list2" :className="'card'" class="zone">
+      <DragList v-model="list2" :className="'card'" class="zone z2">
         <template v-slot:default="{ele,ind,handle}">
           <h2>{{ele}}</h2>
           <!-- <handle :handle="handle">Hold me to Drag!</handle> -->

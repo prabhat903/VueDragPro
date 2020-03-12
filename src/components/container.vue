@@ -3,7 +3,6 @@
     <slot name="default"></slot>
   </div>
 </template>
-
 <script>
 import { setStyle } from "./helper";
 export default {
@@ -16,7 +15,8 @@ export default {
   data() {
     return {
       context: null,
-      containerOffset: null
+      containerOffset: null,
+      currentZone: null
     };
   },
   provide() {
@@ -24,10 +24,14 @@ export default {
       setContext: this.setContext,
       clearContext: this.clearContext,
       findPositionInContainer: this.findPositionInContainer,
-      center: this.center
+      center: this.center,
+      setZone: this.setZone
     };
   },
   methods: {
+    setZone(context) {
+      this.currentZone = context;
+    },
     setContext(newContext) {
       this.context = newContext;
     },

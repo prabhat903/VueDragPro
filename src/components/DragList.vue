@@ -1,5 +1,5 @@
 <template>
-  <div @mousemove="hover">
+  <div @mousemove="hover" @mouseenter="onEnter" @mouseleave="onLeave">
     <template v-for="(ele,ind) in value">
       <slot name="placeholder" v-if="ind === loadat && isOver"></slot>
       <Drag
@@ -29,7 +29,7 @@ export default {
     keyName: { type: String },
     className: { type: String }
   },
-  inject: [],
+  inject: ["setZone"],
   data() {
     return {
       Dragging: null,
@@ -41,20 +41,30 @@ export default {
     };
   },
   methods: {
+    onEnter(e) {
+      this.setZone(this);
+      this.$emit("onZoneEnter");
+    },
+    onLeave() {
+      this.setZone(null);
+    },
     hover(e) {
       if (!this.isDragging) return;
-      // console.log(document.elementsFromPoint(e.clientX, e.clientY));
+      console.log("x,y", document.elementsFromPoint(e.clientX, e.clientY));
+
       let item = document
         .elementsFromPoint(e.clientX, e.clientY)
         .filter(ele => {
           return ele.classList.contains("$ditem") && ele !== this.Dragging.$el;
         });
-      // console.log(item);
+      console.log(item);
+      if (!item.length) return;
       // console.log(e.currentTarget.children);
-      let ind = [...e.currentTarget.children]
+      // let ind = [...e.currentTarget.children]
+      let ind = [...item[0].parentElement.children]
         // .filter(element => !element.classList.contains("$dplaceholder"))
         .indexOf(item[0]);
-      // console.log(ind);
+      console.log(ind);
       if (ind < 0) return;
       this.isOver = e.movementY <= 0;
       this.loadat = this.isOver ? ind : ind - 1;
