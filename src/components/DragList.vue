@@ -1,7 +1,7 @@
-<template>
-  <div @mousemove="hover" @mouseenter="onEnter" @mouseleave="onLeave">
+
+  <!-- <div @mousemove="hover" @mouseenter="onEnter" @mouseleave="onLeave">
     <template v-for="(ele,ind) in value">
-      <slot name="placeholder" v-if="ind === loadat && isOver"></slot>
+      <slot name="placeholder" v-if="ind === loadat && isOver">{{placeHolder}}</slot>
       <Drag
         v-bind="$attrs"
         :key="(ele[keyName]||ele)+''+ind"
@@ -13,10 +13,10 @@
       >
         <slot name="default" v-bind="{ind,ele,handle}">{{ele}}</slot>
       </Drag>
-      <slot name="placeholder" v-if="ind === loadat && !isOver"></slot>
+      <slot name="placeholder" v-if="ind === loadat && !isOver">{{placeHolder}}</slot>
     </template>
-  </div>
-</template>
+  </div> -->
+
 <script>
 import Drag from "./Drag";
 export default {
@@ -29,7 +29,51 @@ export default {
     keyName: { type: String },
     className: { type: String }
   },
-  inject: ["setZone"],
+  created() {},
+  render(h) {
+    let list = this.value.map((ele, ind) => {
+      return h(
+        "Drag",
+        {
+          key: (ele[this.keyName] || ele) + "" + ind,
+          class: "$ditem " + this.className,
+          slot: { handle: this.handle },
+          props: {
+            ...this.$attrs
+          },
+          on: {
+            onStart: context => {
+              this.setPlaceholder(ind, context);
+            },
+            onDrop: this.clearContext,
+            hover: context => {
+              this.onhover(ind, context);
+            }
+          }
+        },
+        this.$slots.default || ele
+      );
+    });
+    if (this.isDragging) {
+      list.splice(
+        this.isOver ? this.loadat : this.loadat + 1,
+        0,
+        this.placeHolder
+      );
+    }
+    return h(
+      "div",
+      {
+        on: {
+          mousemove: this.hover,
+          mouseenter: this.onEnter,
+          mouseleave: this.onLeave
+        }
+      },
+      list
+    );
+  },
+  inject: ["setZone", "placeHolder"],
   data() {
     return {
       Dragging: null,

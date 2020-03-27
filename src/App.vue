@@ -6,18 +6,18 @@
           <h2>{{ele}}</h2>
           <!-- <handle :handle="handle">Hold me to Drag!</handle> -->
         </template>
-        <template #placeholder>
+        <!-- <template #placeholder>
           <div class="card placeholder">I will catch</div>
-        </template>
+        </template>-->
       </DragList>
       <DragList v-model="list2" :className="'card'" class="zone z2">
         <template v-slot:default="{ele,ind,handle}">
           <h2>{{ele}}</h2>
           <!-- <handle :handle="handle">Hold me to Drag!</handle> -->
         </template>
-        <template #placeholder>
+        <!-- <template #placeholder>
           <div class="card placeholder">I will catch</div>
-        </template>
+        </template>-->
       </DragList>
     </container>
     <div>{{list}}</div>
@@ -68,7 +68,7 @@ export default {
   width: 100px;
 }
 div.DraggingContainer {
-  height: 300px;
+  height: 500px;
   padding: 10px;
   display: flex;
   border: 1px solid black;

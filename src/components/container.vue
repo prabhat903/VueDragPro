@@ -19,13 +19,27 @@ export default {
       currentZone: null
     };
   },
+  computed: {
+    placeHolder() {
+      let placeholder = this.$slots.placeHolder && this.$slots.placeHolder();
+      if (!placeholder) {
+        placeholder = this.$createElement(
+          "div",
+          { class: "defaultPlaceholder" },
+          "Drop Here!"
+        );
+      }
+      return placeholder;
+    }
+  },
   provide() {
     return {
       setContext: this.setContext,
       clearContext: this.clearContext,
       findPositionInContainer: this.findPositionInContainer,
       center: this.center,
-      setZone: this.setZone
+      setZone: this.setZone,
+      placeHolder: this.placeHolder
     };
   },
   methods: {
