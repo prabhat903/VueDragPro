@@ -134,7 +134,7 @@ export default {
       this.$emit("onDrop", context);
     },
     dropIn() {
-      if (!this.$slots.placeholder) return;
+      if (!this.placeHolder) return;
       let tempList = this.value.filter(
           (ele, ind) => ind !== this.DraggingIndex
         ),
