@@ -27,7 +27,10 @@ export default {
   props: {
     value: { type: Array },
     keyName: { type: String },
-    className: { type: String }
+    className: { type: String },
+    ZoneName: {
+      type: String
+    }
   },
   created() {},
   render(h) {
@@ -65,12 +68,12 @@ export default {
       "div",
       {
         on: {
-          mousemove: this.hover,
-          mouseenter: this.onEnter,
-          mouseleave: this.onLeave
+          //mousemove: this.hover,
+          mouseenter: this.onEnter
+          //mouseleave: this.onLeave
         }
       },
-      list
+      [this.$slots.head, list]
     );
   },
   inject: ["setZone", "placeHolder"],
@@ -87,13 +90,15 @@ export default {
   },
   methods: {
     onEnter(e) {
+      //   console.log("Zone enter", this.ZoneName);
       this.setZone(this);
-      this.$emit("onZoneEnter");
+      //   this.$emit("onZoneEnter");
     },
-    onLeave() {
-      this.setZone(null);
-    },
+    // onLeave() {
+    //   this.setZone(null);
+    // },
     hover(e) {
+      console.log(this.ZoneName);
       if (!this.isDragging) return;
       //console.log("x,y", document.elementsFromPoint(e.clientX, e.clientY));
 
@@ -102,21 +107,26 @@ export default {
         .filter(ele => {
           return ele.classList.contains("$ditem") && ele !== this.Dragging.$el;
         });
-      console.log(item);
+      //console.log(item);
       if (!item.length) return;
-      let dragListOver = [...item[0].parentElement.children];
+      let dragListOver = item[0].parentElement;
+
       // let ind = [...e.currentTarget.children]
-      console.log(dragListOver);
-      let ind = dragListOver.indexOf(item[0]);
+      if (dragListOver === this.$el) {
+        this.setZone(this);
+      } else {
+        this.setZone(null);
+      }
+      let ind = [...dragListOver.children].indexOf(item[0]);
 
       // .filter(element => !element.classList.contains("$dplaceholder"))
 
-      console.log(ind);
+      //console.log(ind);
       if (ind < 0) return;
       this.isOver = e.movementY <= 0;
       this.placeAt = this.isOver ? ind : ind - 1;
       this.loadat = ind < this.DraggingIndex ? this.placeAt + 1 : this.placeAt;
-      console.log(this.isOver, this.loadat);
+      //console.log(this.isOver, this.loadat);
     },
     onhover(ind, { event, Dragging }) {
       // console.log(this.DraggingIndex, ind);

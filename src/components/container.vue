@@ -44,6 +44,11 @@ export default {
   },
   methods: {
     setZone(context) {
+      if (context) {
+        context.$emit("onZoneEnter", context);
+      } else if (this.currentZone) {
+        this.currentZone.$emit("onZoneLeave", this.currentZone);
+      }
       this.currentZone = context;
     },
     setContext(newContext) {
@@ -83,7 +88,13 @@ export default {
         left: position.x - this.context.offset.x + "px"
       };
       setStyle.call(this.context.$el, style);
+      this.moveInZone(e);
       e.preventDefault();
+    },
+    moveInZone(e) {
+      if (this.currentZone) {
+        this.currentZone.hover(e);
+      }
     }
   }
 };
