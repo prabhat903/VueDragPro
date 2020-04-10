@@ -80,7 +80,7 @@ export default {
       DraggingIndex: "",
       isDragging: false,
       tempList: [],
-      loadat: "",
+      loadat: null,
       isOver: true
     };
   },
