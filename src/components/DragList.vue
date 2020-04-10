@@ -136,6 +136,7 @@ export default {
       this.dropIn();
       this.isDragging = false;
       this.loadat = null;
+      this.placeAt = null;
       this.$emit("onDrop", context);
     },
     dropIn() {
