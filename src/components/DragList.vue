@@ -54,7 +54,7 @@ export default {
         this.$slots.default || ele
       );
     });
-    if (this.isDragging) {
+    if (this.isDragging && this.loadat) {
       list.splice(
         this.isOver ? this.loadat : this.loadat + 1,
         0,
