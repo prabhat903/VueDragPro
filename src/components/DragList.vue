@@ -54,9 +54,9 @@ export default {
         this.$slots.default || ele
       );
     });
-    if (this.isDragging && this.loadat) {
+    if (this.isDragging && this.placeAt !== null) {
       list.splice(
-        this.isOver ? this.loadat : this.loadat + 1,
+        this.isOver ? this.placeAt : this.placeAt + 1,
         0,
         this.placeHolder
       );
@@ -81,6 +81,7 @@ export default {
       isDragging: false,
       tempList: [],
       loadat: null,
+      placeAt: null,
       isOver: true
     };
   },
@@ -94,7 +95,7 @@ export default {
     },
     hover(e) {
       if (!this.isDragging) return;
-      console.log("x,y", document.elementsFromPoint(e.clientX, e.clientY));
+      //console.log("x,y", document.elementsFromPoint(e.clientX, e.clientY));
 
       let item = document
         .elementsFromPoint(e.clientX, e.clientY)
@@ -103,15 +104,19 @@ export default {
         });
       console.log(item);
       if (!item.length) return;
-      // console.log(e.currentTarget.children);
+      let dragListOver = [...item[0].parentElement.children];
       // let ind = [...e.currentTarget.children]
-      let ind = [...item[0].parentElement.children]
-        // .filter(element => !element.classList.contains("$dplaceholder"))
-        .indexOf(item[0]);
+      console.log(dragListOver);
+      let ind = dragListOver.indexOf(item[0]);
+
+      // .filter(element => !element.classList.contains("$dplaceholder"))
+
       console.log(ind);
       if (ind < 0) return;
       this.isOver = e.movementY <= 0;
-      this.loadat = this.isOver ? ind : ind - 1;
+      this.placeAt = this.isOver ? ind : ind - 1;
+      this.loadat = ind < this.DraggingIndex ? this.placeAt + 1 : this.placeAt;
+      console.log(this.isOver, this.loadat);
     },
     onhover(ind, { event, Dragging }) {
       // console.log(this.DraggingIndex, ind);
@@ -140,7 +145,11 @@ export default {
         ),
         temp = this.value.splice(this.DraggingIndex, 1);
       tempList.splice(
-        this.loadat !== null ? this.loadat : this.DraggingIndex,
+        this.loadat !== null
+          ? this.isOver
+            ? this.loadat - 1
+            : this.loadat
+          : this.DraggingIndex,
         0,
         temp[0]
       );

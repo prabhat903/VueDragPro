@@ -93,4 +93,9 @@ export default {
 .container {
   position: relative;
 }
+.defaultPlaceholder {
+  padding: 5px;
+  border: 1px solid black;
+  opacity: 0.5;
+}
 </style>
